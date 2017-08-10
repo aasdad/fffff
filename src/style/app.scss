@@ -1,0 +1,107 @@
+ @charset "utf-8";  
+ @import '../style/core/reset.scss';
+ 
+@font-face {
+  font-family: 'iconfont';
+  src: url('../../static/iconfont/iconfont.eot');
+  src: url('../../static/iconfont/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../../static/iconfont/iconfont.woff') format('woff'),
+  url('../../static/iconfont/iconfont.ttf') format('truetype'),
+  url('../../static/iconfont/iconfont.svg#iconfont') format('svg');
+} 
+ 
+.iconfont{
+  font-family:"iconfont" !important;
+  font-size:16px;font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+ 
+html,body{
+    height: 100%;
+    width:100%;
+}
+html{font-size:31.25vw}
+#app{
+    height: 100%;
+    width:100%;
+    
+    
+}
+
+.router-view {
+  width: 100%;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+  backface-visibility: hidden;
+}
+
+.vux-pop-out-enter-active,
+.vux-pop-out-leave-active,
+.vux-pop-in-enter-active,
+.vux-pop-in-leave-active {
+  will-change: transform;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.vux-pop-out-enter-active {
+  perspective: 1000;
+  animation-name: popInLeft;
+}
+.vux-pop-out-leave-active {
+  animation-name: popOutRight;
+}
+.vux-pop-in-enter-active {
+  perspective: 1000;
+  animation-name: popInRight;
+}
+.vux-pop-in-leave-active {
+  animation-name: popOutLeft;
+}
+@keyframes popInLeft {
+  from {
+    
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+   
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes popOutLeft {
+  from {
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+@keyframes popInRight {
+  from {
+   
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes popOutRight {
+  from {
+    
+  }
+  to {
+    
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ease;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}

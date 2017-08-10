@@ -1,0 +1,84 @@
+1.登录请求: 
+{"TCd": "5601", "UName": "14000001", "Pwd": "931C386956C1A402",
+ "CID": "TSDFJI345DSFofsjdo12"}
+响应:
+ {"RCd": "00", "RstMsg": "成功", "SID": "GSD115", "AuthCd": "3", "RealName": "张三"}
+说明: SID代表session
+	  AuthCd代表操作权限
+	  	0 表示不能进行终端操作
+	  	1 表示只能进行普通缴存
+	  	2 表示只能进行强制缴存
+	  	3 表示可以进行强制缴存和普通缴存
+	  RCd返回码
+	  	00 表示成功
+	  	U3 表示用户名或密码错误
+	  	U4 表示登录失败
+
+2.登出
+请求: {"TCd": "5602", "UName": "14000001", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功"}
+
+3.修改密码
+请求: {"TCd": "5603","UName":"14000001", "OldPwd": "931C386956C1A402", "NewPwd": "931C386956C1A402"}
+响应: {"RCd": "00", "RstMsg": "成功"}
+说明: "RCd"值
+		"E1": "原密码错误"
+		"W2": "新密码与原密码一致"
+ 
+
+4.获取款项类型列表(当AuthCd为1/2/3时可使用)
+请求: {"TCd": "5604", "UName": "14000001", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功", "FundTypeList": [{"TypeCode": "1001", "TypeName": "营业款"}, {"TypeCode": "1002", "TypeName": "预收款"}]}
+
+
+5.普通存款二维码请求(当AuchCd为1/3时可用)
+请求: {"TCd": "5605", "UName": "14000001", "DepDate": "2016-11-25", "DepType": "1001", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功", "QRCd": "f2LzJpdVBiKzRvREdBcjU3R2VYMG1NUT09MjAxNjExMjMxNzQxMTQ="}
+说明: DepDate代表要款项日期, DepType代表款项类型, 
+
+
+6.强制存款二维码请求(当AuchCd为2/3时可用)
+请求: {"TCd": "5606", "UName": "14000001", "DepDate": "2016-11-25", "DepType": "1001", "SID": "GSD115", "DepInfo": [{"Denom": "100", "Number": "10"}, {"Denom": "100", "Number": "10"}, {"Denom": "50", "Number": "2"}, {"Denom": "20", "Number": "1"}, {"Denom": "10", "Number": "5"}, {"Denom": "5", "Number": "4"}, {"Denom": "1", "Number": "6"}, {"Denom": "0.5", "Number": "2"}, {"Denom": "0.1", "Number": "2"}]}
+响应: {"RCd": "00", "RstMsg": "成功", "QRCd": "f2LzJpdVBiKzRvREdBcjU3R2VYMG1NUT09MjAxNjExMjMxNzQxMTQ="}
+说明: DepDate代表要款项日期, DepType代表款项类型, DepInfo代表强存详细信息(Denom代表面值, Number代表对应面值张数)
+
+
+7.通知列表未读个数(三种)
+请求: {"TCd": "5607", "UName": "14000001", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功", "Trans": "12", "Announce": "0", "Break": "0"}
+说明: Trans代表交易未读消息数
+	 Announce代表公告未读消息数
+	 Break代表故障通知未读消息数
+
+
+8.交易记录列表请求
+请求: {"TCd": "5608", "UName": "14000001", "Pg": "1", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功", "NL":[{"id": "2", "TAmt": "100.00", "state": "0", "TStatus": "交易成功", "TDate": "2016-12-29 10:15:03 ", "TType": "普通缴存"}, {"id": "3", "TAmt": "5001.00", "state": "1", "TStatus": "交易成功", "TDate": "2016-12-29 10:15:14", "TType": "强制缴存"}], "NC": "20"}
+说明: Pg代表页数
+	  NC代表交易记录总数
+      NL代表各个交易记录
+      TAmt代表交易金额, state代表阅读标志（0为未读, 1为已读）, TStatus代表交易结果, TDate代表交易日期, Pg代表第几页
+
+
+9.交易详情
+请求: {"TCd": "5609", "UName": "14000001", "id": "3", "state": "0", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功", "DevNo":"610014", "TermSeqNo": "000003", "UserName": "李天乐", "MoneyDate":"2016-11-21", "TranDate":"2016-11-14 11:59:20","TranAmt":"246",  "Array": "[{"Denom":"100", "Number":"23"},{"Denom":"20", "Number":"23"},{"Denom":"1", "Number":"23"}]", "TranType":"营业款", "CashInType":"普通缴存",  "Result":"成功"}
+说明: DevNo表示设备编号; TermSeqNo表示终端单号; UserName表示缴存用户; MoneyDate表示款项日期; TranDate表示缴存时间; TraneAmt表示缴存金额; Array表示交易详情
+	  Denom表示面值; Number表示张数; TranType表示款项类型; CashInType表示入钞方式; Result表示缴存结果
+
+10.故障报修上送
+请求: {"TCd": "5614", "UName": "14000001", "ErrQRCd": "f2LzJpdVBiKzRvREdBcjU3R2VYMG1NUT09MjAxNjExMjMxNzQxMTQ=", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功"}
+
+
+个推, 推送的交易结果, 类型是JSON串
+{"NType": "0", "id": "2", "state": "0"}
+
+NType=0代表存款通知
+
+
+11.请求广告图片和标语
+请求: {"TCd": "5616", "UName": "140001", "SID": "GSD115"}
+响应: {"RCd": "00", "RstMsg": "成功", "Slogan": 
+["迎圣诞，送好礼", "提前祝您元旦快乐", "周末愉快，雾霾散去"], 
+"Pics": ["/home/pictures/icbc/1.jpg", "/home/pictures/icbc/2.jpg", "/home/pictures/icbc/3.jpg"]}
