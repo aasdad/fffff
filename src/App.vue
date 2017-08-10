@@ -1,8 +1,6 @@
 <template>
-  <div id="app">
-        <!--<keep-alive >
-           <router-view  v-if="!$route.meta.notKeepAlive"></router-view>
-        </keep-alive>  -->
+  <div id="app">     
+       
            <router-view  class="router-view"></router-view>
   </div>
 </template>
@@ -24,10 +22,10 @@ export default {
 @import '~vux/src/styles/reset.less';
 
 body {
-  background-color:#fbf9fe;
+  /*background-color:#fbf9fe;
   margin:0;
   padding:0;
   width:100%;
-  height:100%;
+  height:100%;*/
 }
 </style>
